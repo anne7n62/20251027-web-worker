@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Opgave 1</title>
+  </head>
+
+  <!-- Lav et script i en browser der vha. af en worker finder primtallene op
+        til uendelig. Workeren skal løbende sende hvert primtal det finder, til
+        overtråden, som så viser det til brugeren -->
+  <body>
+    <h1>Primtal</h1>
+    <p id="tal"></p>
+
+    <script>
+      // Starter worker og peger på worker-fil
+      const worker = new Worker("opgave-1-worker.js");
+
+      // Modtag primtal fra worker og vis på siden
+      worker.onmessage = function (e) {
+        //Når vi modtager - event
+        const p = document.createElement("p");
+        p.textContent = e.data;
+        document.getElementById("tal").appendChild(p);
+      };
+    </script>
+  </body>
+</html>
