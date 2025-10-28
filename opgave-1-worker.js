@@ -20,4 +20,8 @@ function findNext() {
   setTimeout(findNext, 0); // undgå at blokere worker helt
 }
 
-findNext();
+// findNext();
+
+onmessage = function (besked) {
+  if (besked.data === "Start!") findNext();
+};

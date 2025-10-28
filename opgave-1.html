@@ -10,19 +10,24 @@
         overtråden, som så viser det til brugeren -->
   <body>
     <h1>Primtal</h1>
-    <p id="tal"></p>
+    <p id="talOutput"></p>
+    <button id="knap">Sæt igang</button>
 
     <script>
       // Starter worker og peger på worker-fil
-      const worker = new Worker("opgave-1-worker.js");
+      const arbejder = new Worker("opgave-1-worker.js");
 
       // Modtag primtal fra worker og vis på siden
-      worker.onmessage = function (e) {
+      arbejder.onmessage = (besked) => {
         //Når vi modtager - event
         const p = document.createElement("p");
-        p.textContent = e.data;
-        document.getElementById("tal").appendChild(p);
+        p.textContent = besked.data;
+        document.getElementById("talOutput").appendChild(p);
       };
+
+      document.getElementById("knap").addEventListener("click", () => {
+        arbejder.postMessage("Start!");
+      });
     </script>
   </body>
 </html>
